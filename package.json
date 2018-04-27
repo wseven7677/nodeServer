@@ -2,14 +2,21 @@
   "name": "nodeservice",
   "version": "1.0.0",
   "description": "node service for mongodb.",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "babel app -d dist"
   },
   "author": "caoyu13",
   "license": "ISC",
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "express": "^4.16.3",
     "mongodb": "^3.0.7"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
   }
 }
