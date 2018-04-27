@@ -1,9 +1,11 @@
-use
-> npm run babel
-to get codes in /dist.
+git clone this repository
 
-put `/dist` on vps.
+npm install
 
-> node app.js
+npm run babel
+
+cd dist
+
+node app.js
 
 ok.
