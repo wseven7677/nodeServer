@@ -1,19 +1,25 @@
 import express from 'express'
 import mongo from './mongo'
 
-var app = express();
+var app = express(),
+    rs = ['history','pictures','members'];
 
-app.get('/api/history', function (req, res) {
-   res.send([{"title": "自然地理","content": "hello from node~自-然-地-理"}]);
+rs.forEach(function (value, index) {
+  app.get('/api/' + value, function (req, res) {
+    mongo(value,function (resd) {
+      res.send(resd);
+    });
+  });
 });
 
-app.get('/api/pictures', function (req, res) {
-   res.send([{"img": "imgIndexShow_1.jpg","title": "hello from node~"}]);
-});
-
-app.get('/api/members', function (req, res) {
-   res.send([{"img": "imgIndexShow_1.jpg","title": "hello from node~"}]);
-});
+//
+// app.get('/api/pictures', function (req, res) {
+//    res.send();
+// });
+//
+// app.get('/api/members', function (req, res) {
+//    res.send();
+// });
 
 
 app.listen(8080,'localhost', function () {

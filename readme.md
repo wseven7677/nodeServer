@@ -4,6 +4,6 @@ to get codes in /dist.
 
 put `/dist` on vps.
 
-node app.js
+> node app.js
 
 ok.

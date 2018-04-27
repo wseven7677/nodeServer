@@ -1,7 +1,27 @@
 import mongodb from 'mongodb'
 
-const mongo = function (url,callback) {
-  console.log('mg~~');
+var mongoClient = mongodb.MongoClient,
+    dbPort = '27017',
+    dbName = 'ycjxc',
+    dbUrl = 'mongodb://localhost:' + dbPort + '/';
+
+const mongo = function (collect, callback) {
+    mongoClient.connect(dbUrl, function (err, db) {
+      if(err) {
+        throw err;
+      }
+      console.log('database connect.');
+
+      var onedb = db.db(dbName);
+      onedb.collection(collect).find().toArray(function (err, rst) {
+        if(err) {
+          throw err;
+        }
+
+        callback(rst);
+        db.close();
+      });
+    });
 };
 
 export default mongo;
