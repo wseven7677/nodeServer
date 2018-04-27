@@ -12,16 +12,6 @@ rs.forEach(function (value, index) {
   });
 });
 
-//
-// app.get('/api/pictures', function (req, res) {
-//    res.send();
-// });
-//
-// app.get('/api/members', function (req, res) {
-//    res.send();
-// });
-
-
 app.listen(8080,'localhost', function () {
    console.log('service is on.');
 });

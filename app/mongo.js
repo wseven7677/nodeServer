@@ -10,7 +10,7 @@ const mongo = function (collect, callback) {
       if(err) {
         throw err;
       }
-      console.log('database connect.');
+      console.log('database connected.');
 
       var onedb = db.db(dbName);
       onedb.collection(collect).find().toArray(function (err, rst) {
@@ -19,7 +19,9 @@ const mongo = function (collect, callback) {
         }
 
         callback(rst);
+        
         db.close();
+        console.log('database closed.');
       });
     });
 };
