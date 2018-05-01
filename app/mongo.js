@@ -1,8 +1,8 @@
 import mongodb from 'mongodb'
 
 var mongoClient = mongodb.MongoClient,
-    dbPort = '27017',
     dbName = 'ycjxc',
+    dbPort = '27017',
     dbUrl = 'mongodb://localhost:' + dbPort + '/';
 
 const mongo = function (collect, callback) {
@@ -18,8 +18,8 @@ const mongo = function (collect, callback) {
           throw err;
         }
 
-        callback(rst);
-        
+        callback(rst); // 返回数据处
+
         db.close();
         console.log('database closed.');
       });
