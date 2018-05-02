@@ -1,12 +1,15 @@
 import express from 'express'
 import mongo from './mongo'
+import bodyparser from 'body-parser'
 
 var app = express(),
     nodePort = 8080,
     rs = ['users','history','pictures','members'];// 需手动添加数据库中的collcetions，后续改自动识别。
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
 rs.forEach(function (value, index) {
-  
+
   // ---get:---
   app.get('/api/' + value, function (req, res) {
 
