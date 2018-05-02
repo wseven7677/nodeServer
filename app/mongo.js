@@ -15,7 +15,7 @@ const mongo = function (collect, data, callback) {
       var onedb = db.db(dbName);
 
       if (data.demand === 'm') {
-        onedb.collcetion(collect).update({
+        onedb.collection(collect).update({
           'title': data.extitle
         },{
           $set: {
@@ -24,7 +24,7 @@ const mongo = function (collect, data, callback) {
         });
 
         callback(true);
-        
+
       } else {
         onedb.collection(collect).find().toArray(function (err, rst) {
           if(err) {
