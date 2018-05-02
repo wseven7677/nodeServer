@@ -1,11 +1,11 @@
 import mongodb from 'mongodb'
 
 var mongoClient = mongodb.MongoClient,
-    dbPort = '27017',
     dbName = 'ycjxc',
+    dbPort = '27017',
     dbUrl = 'mongodb://localhost:' + dbPort + '/';
 
-const mongo = function (collect, callback) {
+const mongo = function (collect, data, callback) {
     mongoClient.connect(dbUrl, function (err, db) {
       if(err) {
         throw err;
@@ -13,16 +13,29 @@ const mongo = function (collect, callback) {
       console.log('database connected.');
 
       var onedb = db.db(dbName);
-      onedb.collection(collect).find().toArray(function (err, rst) {
-        if(err) {
-          throw err;
-        }
 
-        callback(rst);
-        
-        db.close();
-        console.log('database closed.');
-      });
+      if (data.demand === 'q') {
+        onedb.collection(collect).find().toArray(function (err, rst) {
+          if(err) {
+            throw err;
+          }
+
+          callback(rst); // 返回数据处
+        });
+      }else if (data.demand === 'm') {
+        onedb.collcetion(collect).update({
+          'title': data.extitle
+        },{
+          $set: {
+            'title': data.title
+          }
+        });
+
+        callback(true);
+      }
+
+      db.close();
+      console.log('database closed.');
     });
 };
 
