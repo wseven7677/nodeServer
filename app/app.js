@@ -2,7 +2,7 @@ import express from 'express'
 import mongo from './mongo'
 
 var app = express(),
-    rs = ['history','pictures','members'];
+    rs = ['users','history','pictures','members'];
 
 rs.forEach(function (value, index) {
   app.get('/api/' + value, function (req, res) {
