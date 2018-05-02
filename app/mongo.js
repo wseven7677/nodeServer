@@ -38,12 +38,17 @@ const mongo = function (collect, data, callback) {
               'title': data.title
             },{justOne: true}); // 仅删除一个项目
 
+            callback(true);
+
         });
       }else if (data.demand === 'a') { // --增加项目--
         oneCollection.insert({
           'img': 'logo.png',
-          'title': '请键入标题'
+          'title': '请键入标题'+Math.round(Math.random()*100)
         });
+
+        callback(true);
+
       } else {
         oneCollection.find().toArray(function (err, rst) { // --查询项目--
           if(err) {
