@@ -14,15 +14,7 @@ const mongo = function (collect, data, callback) {
 
       var onedb = db.db(dbName);
 
-      if (data.demand === 'q') {
-        onedb.collection(collect).find().toArray(function (err, rst) {
-          if(err) {
-            throw err;
-          }
-
-          callback(rst); // 返回数据处
-        });
-      }else if (data.demand === 'm') {
+      if (data.demand === 'm') {
         onedb.collcetion(collect).update({
           'title': data.extitle
         },{
@@ -32,6 +24,15 @@ const mongo = function (collect, data, callback) {
         });
 
         callback(true);
+        
+      } else {
+        onedb.collection(collect).find().toArray(function (err, rst) {
+          if(err) {
+            throw err;
+          }
+
+          callback(rst); // 返回数据处
+        });
       }
 
       db.close();
