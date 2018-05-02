@@ -27,24 +27,16 @@ const mongo = function (collect, data, callback) {
         callback(true);
 
       }else if(data.demand === 'd'){ // --删除项目--
-        oneCollection.find({
-          'title': data.title // 查询是否有这一项
-        }).toArray(function (err, rst) {
-          if(err) {
-            throw err;
-          }
+        oneCollection.remove({
+          'title': data.title
+        },{justOne: true}); // 仅删除一个项目
 
-            oneCollection.remove({ // 如果有 去删除
-              'title': data.title
-            },{justOne: true}); // 仅删除一个项目
+        callback(true);
 
-            callback(true);
-
-        });
       }else if (data.demand === 'a') { // --增加项目--
         oneCollection.insert({
           'img': 'logo.png',
-          'title': '请键入标题'+Math.round(Math.random()*100)
+          'title': '请键入标题'+Math.round(Math.random()*10000)
         });
 
         callback(true);
