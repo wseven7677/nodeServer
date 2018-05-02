@@ -7,6 +7,7 @@ var app = express(),
     rs = ['users','history','pictures','members'];// 需手动添加数据库中的collcetions，后续改自动识别。
 
 app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
 
 rs.forEach(function (value, index) {
 
