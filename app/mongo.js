@@ -12,10 +12,11 @@ const mongo = function (collect, data, callback) {
       }
       console.log('database connected.');
 
-      var onedb = db.db(dbName);
+      var onedb = db.db(dbName),
+          oneCollection = onedb.collection(collect);
 
-      if (data.demand === 'm') {
-        onedb.collection(collect).update({
+      if (data.demand === 'm') { // --修改项目内容--
+        oneCollection.update({
           'title': data.extitle
         },{
           $set: {
@@ -25,8 +26,26 @@ const mongo = function (collect, data, callback) {
 
         callback(true);
 
+      }else if(data.demand === 'd'){ // --删除项目--
+        oneCollection.find({
+          'title': data.title // 查询是否有这一项
+        }).toArray(function (err, rst) {
+          if(err) {
+            throw err;
+          }
+
+            oneCollection.remove({ // 如果有 去删除
+              'title': data.title
+            },{justOne: true}); // 仅删除一个项目
+
+        });
+      }else if (data.demand === 'a') { // --增加项目--
+        oneCollection.insert({
+          'img': 'logo.png',
+          'title': '请键入标题'
+        });
       } else {
-        onedb.collection(collect).find().toArray(function (err, rst) {
+        oneCollection.find().toArray(function (err, rst) { // --查询项目--
           if(err) {
             throw err;
           }
