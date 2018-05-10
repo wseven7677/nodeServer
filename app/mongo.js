@@ -35,8 +35,19 @@ const mongo = function (collect, data, callback) {
 
       }else if (data.demand === 'a') { // --增加项目--
         oneCollection.insert({
-          'img': 'logo.png',
+          'img': 'default-error.png',
           'title': '请键入标题'+Math.round(Math.random()*10000)
+        });
+
+        callback(true);
+
+      }else if (data.demand === 'pic') { // --替换图片--
+        oneCollection.update({
+          'title': data.title
+        },{
+          $set: {
+            'img': data.img
+          }
         });
 
         callback(true);
