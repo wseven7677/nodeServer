@@ -1,5 +1,8 @@
 import express from 'express'
+
 import mongo from './mongo'
+import mongoBook from './mongoBook'
+
 import bodyparser from 'body-parser'
 import multer from 'multer'
 
@@ -25,6 +28,8 @@ function handleUploadPic(req) {
 
   return rst;
 }
+
+// === GET & cardCollection post ===
 
 rs.forEach(function(value, index) {
 
@@ -61,6 +66,15 @@ app.post('/api/members2uploadpic/', upload.single('imgObj'), function(req, res) 
 app.post('/api/pictures2uploadpic/', upload.single('imgObj'), function(req, res) {
   // 取数据，发数据：
   mongo('pictures', handleUploadPic(req), function(resd) {
+    res.send(resd);
+  });
+});
+
+// ----- handle BookCollection post ------
+
+app.post('/api/book4history', (req, res) => {
+  // 取数据，发数据：
+  mongoBook('history', req.body, resd => {
     res.send(resd);
   });
 });

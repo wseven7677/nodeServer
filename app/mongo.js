@@ -1,9 +1,9 @@
 import mongodb from 'mongodb'
+import mongoKey from './mongoKey'
 
 var mongoClient = mongodb.MongoClient,
-    dbName = 'ycjxc',
-    dbPort = '27017',
-    dbUrl = 'mongodb://localhost:' + dbPort + '/';
+    dbName = mongoKey.dbName,
+    dbUrl = mongoKey.dbUrl;
 
 const mongo = function (collect, data, callback) {
     mongoClient.connect(dbUrl, function (err, db) {
@@ -11,7 +11,6 @@ const mongo = function (collect, data, callback) {
         throw err;
       }
       console.log('database connected.');
-
       var onedb = db.db(dbName),
           oneCollection = onedb.collection(collect);
 
@@ -64,6 +63,7 @@ const mongo = function (collect, data, callback) {
 
       db.close();
       console.log('database closed.');
+
     });
 };
 
