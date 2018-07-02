@@ -72,10 +72,10 @@ app.post('/api/pictures2uploadpic/', upload.single('imgObj'), function(req, res)
 
 // ----- handle BookCollection post ------
 
-app.post('/api/book4history', (req, res) => {
+app.post('/api/book4/history', (req, res) => {
   // 取数据，发数据：
   mongoBook('history', req.body, resd => {
-    res.send(resd);
+    res.send(resd); // true
   });
 });
 

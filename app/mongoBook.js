@@ -3,7 +3,6 @@ import mongoKey from './mongoKey'
 
 let mongoClient = mongodb.MongoClient,
     dbName = mongoKey.dbName,
-    dbPort = mongoKey.dbPort,
     dbUrl = mongoKey.dbUrl;
 
 const mongoBook = function (collect, data, callback) {
@@ -15,19 +14,12 @@ const mongoBook = function (collect, data, callback) {
 
       var onedb = db.db(dbName),
           oneCollection = onedb.collection(collect),
-          tag = data.tag,
-          subTag = data.subTag;
+          bookContent = data;
 
-      switch(data.demand) {
-          case 'a':
+      oneCollection.remove({});
+      oneCollection.insertMany(bookContent);
 
-            break;
-          case 'm':
-          break;
-          case 'd':
-          break;
-          default:
-      }
+      callback(true);
 
       db.close();
       console.log('database closed.');
