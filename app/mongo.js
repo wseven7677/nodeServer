@@ -23,7 +23,7 @@ const mongo = function (collect, data, callback) {
             'title': data.title
           }
         });
-
+        trashpic.insert({'title': data.extitle});
         callback(true);
 
       }else if(data.demand === 'd'){ // --删除项目--
