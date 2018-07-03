@@ -11,7 +11,7 @@ var app = express(),
     nodePort = 8080,
     rs = ['history', 'pictures', 'members'], // 需手动添加数据库中的collcetions，后续改自动识别。
     storage = multer.diskStorage({
-        dest: '/var/www/aptxwslmbjs.tk/static/img/',
+        destination: '/var/www/aptxwslmbjs.tk/static/img/',
         filename(req, file, cb) {
             cb(null, 'uploadpic-' + Date.now() + '.png');
         }
