@@ -12,7 +12,8 @@ const mongo = function (collect, data, callback) {
       }
       console.log('database connected.');
       var onedb = db.db(dbName),
-          oneCollection = onedb.collection(collect);
+          oneCollection = onedb.collection(collect),
+          trashpic = onedb.collection('trashpic');
 
       if (data.demand === 'm') { // --修改项目内容--
         oneCollection.update({
@@ -29,6 +30,8 @@ const mongo = function (collect, data, callback) {
         oneCollection.remove({
           'title': data.title
         },{justOne: true}); // 仅删除一个项目
+
+        trashpic.insert({'title': data.title});
 
         callback(true);
 
