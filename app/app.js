@@ -9,7 +9,7 @@ import multer from 'multer'
 
 var app = express(),
     nodePort = 8080,
-    rs = ['history', 'pictures', 'members'], // 需手动添加数据库中的collcetions，后续改自动识别。
+    rs = ['history', 'pictures', 'members','news'], // 需手动添加数据库中的collcetions，后续改自动识别。
     storage = multer.diskStorage({
         destination: '/var/www/aptxwslmbjs.tk/static/img/',
         filename(req, file, cb) {
@@ -29,6 +29,15 @@ function handleUploadPic(req) {
     var rst = req.body;
     rst.img = req.file.filename;
     rst.demand = 'pic';
+
+    return rst;
+}
+function handleUploadNews(req) {
+    var rst = req.body,
+        tmpDate = new Date();
+    rst.img = req.file.filename;
+    rst.demand = 'news';
+    rst.time = tmpDate.toString();
 
     return rst;
 }
@@ -70,6 +79,12 @@ app.post('/api/members2uploadpic/', upload.single('imgObj'), function(req, res) 
 app.post('/api/pictures2uploadpic/', upload.single('imgObj'), function(req, res) {
     // 取数据，发数据：
     mongo('pictures', handleUploadPic(req), function(resd) {
+        res.send(resd);
+    });
+});
+app.post('/api/news2uploadpic/', upload.single('imgObj'), function(req, res) {
+    // 取数据，发数据：
+    mongo('news', handleUploadNews(req), function(resd) {
         res.send(resd);
     });
 });

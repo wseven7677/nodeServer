@@ -23,15 +23,21 @@ const mongo = function (collect, data, callback) {
             'title': data.title
           }
         });
-        trashpic.insert({'title': data.extitle});
         callback(true);
 
       }else if(data.demand === 'd'){ // --删除项目--
+
+          oneCollection.find({'time': data.time}).toArray((err, result) => {
+              if(err) {throw err;}
+              if(result.length > 0){
+                  trashpic.insert({'title': result[0].img});
+              }
+          });
+
         oneCollection.remove({
           'title': data.title
         },{justOne: true}); // 仅删除一个项目
 
-        trashpic.insert({'title': data.title});
 
         callback(true);
 
@@ -44,6 +50,14 @@ const mongo = function (collect, data, callback) {
         callback(true);
 
       }else if (data.demand === 'pic') { // --替换图片--
+
+          oneCollection.find({'time': data.time}).toArray((err, result) => {
+              if(err) {throw err;}
+              if(result.length > 0){
+                  trashpic.insert({'title': result[0].img});
+              }
+          });
+
         oneCollection.update({
           'title': data.title
         },{
@@ -54,7 +68,31 @@ const mongo = function (collect, data, callback) {
 
         callback(true);
 
-      } else {
+    }else if(data.demand === 'news'){
+        oneCollection.insert({
+            'title': data.title,
+            'time': data.time,
+            'content': data.content,
+            'img': data.img
+        });
+
+        callback(true);
+
+    }else if(data.demand === 'd-news'){
+        oneCollection.find({'time': data.time}).toArray((err, result) => {
+            if(err) {throw err;}
+            if(result.length > 0){
+                trashpic.insert({'title': result[0].img});
+            }
+        });
+
+        oneCollection.remove({
+          'time': data.time
+        },{justOne: true}); // 仅删除一个项目
+
+        callback(true);
+
+    } else {
         oneCollection.find().toArray(function (err, rst) { // --查询项目--
           if(err) {
             throw err;
