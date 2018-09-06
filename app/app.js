@@ -11,7 +11,7 @@ var app = express(),
     nodePort = 8080,
     rs = ['history', 'pictures', 'members','news'], // 需手动添加数据库中的collcetions，后续改自动识别。
     storage = multer.diskStorage({
-        destination: '/var/www/aptxwslmbjs.tk/static/img/',
+        destination: '/var/www/ycjxc.com/static/img/',
         filename(req, file, cb) {
             cb(null, 'uploadpic-' + Date.now() + '.png');
         }
@@ -107,6 +107,14 @@ app.post('/api/users', (req, res) => {
     });
 });
 
+// ----- handle BookCollection post ------
+
+app.post('/api/book4/history', (req, res) => {
+  // 取数据，发数据：
+  mongoBook('history', req.body, resd => {
+    res.send(resd); // true
+  });
+});
 
 app.listen(nodePort, 'localhost', function() {
     console.log('service is on.');

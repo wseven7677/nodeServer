@@ -27,7 +27,7 @@ const mongo = function (collect, data, callback) {
 
       }else if(data.demand === 'd'){ // --删除项目--
 
-          oneCollection.find({'time': data.time}).toArray((err, result) => {
+          oneCollection.find({'title': data.title}).toArray((err, result) => {
               if(err) {throw err;}
               if(result.length > 0){
                   trashpic.insert({'title': result[0].img});
@@ -51,7 +51,7 @@ const mongo = function (collect, data, callback) {
 
       }else if (data.demand === 'pic') { // --替换图片--
 
-          oneCollection.find({'time': data.time}).toArray((err, result) => {
+          oneCollection.find({'title': data.title}).toArray((err, result) => {
               if(err) {throw err;}
               if(result.length > 0){
                   trashpic.insert({'title': result[0].img});
